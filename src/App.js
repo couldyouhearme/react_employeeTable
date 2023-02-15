@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Employee } from './Employee'
+import { AddEmployee } from './AddEmployee'
 
-function App() {
+const employeeList = [
+  {
+    id: 0,
+    name: 'Amy',
+    position: 'software engineer',
+    salary: 150000
+  },
+  {
+    id: 1,
+    name: 'Tom',
+    position: 'software developer',
+    salary: 135000
+  },
+]
+
+const App = () => {
+  const [employees, setEmployees] = useState(employeeList)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Salary</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          employees && employees.map((employee, idx) => {
+            return (
+              <tr key={idx}>
+                <Employee employees={employee} />
+              </tr>
+            )
+          })
+        }
+        <AddEmployee employees={employees} setEmployees={setEmployees} />
+      </tbody>
+    </table>)
 }
 
-export default App;
+export default App
